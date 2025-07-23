@@ -1,5 +1,7 @@
+// Stepper.cpp - Angelo Z. (2025)
+// Controller for stepper motors with use of nunchuk and
+// non-blocking functions
 #include <nI2C.h>
-
 
 class WiiNunchuk {
   private:
@@ -98,7 +100,6 @@ void runStepper(unsigned long us) {
     const unsigned long highTime = 2;
     const unsigned long lowTime = us;
 
-  
     if (pulseActive && micros() - lastPulseTime >= highTime) {
         PORTD &= ~(1 << PD2);
         pulseActive = false;
@@ -180,6 +181,7 @@ void loop() {
             velocity = 0;
         }
 
+      
         runStepper(velocity);
   
         buttonPressed = buttonState;
