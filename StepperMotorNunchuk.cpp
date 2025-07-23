@@ -115,7 +115,10 @@ void runStepper(unsigned long us) {
 
 // Attiva stepper
 void enableStepper(bool enable) {
-    digitalWrite(ENA_PIN, enable);
+    if (enable) 
+      PORTB |= (1 << PB1);
+    else
+      PORTB &= ~(1 << PB1);
 }
 
 
