@@ -119,6 +119,8 @@ void enableStepper(bool enable) {
       PORTB |= (1 << PB1);
     else
       PORTB &= ~(1 << PB1);
+  
+  delayMicroseconds(100);
 }
 
 
