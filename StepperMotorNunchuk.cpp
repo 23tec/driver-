@@ -65,8 +65,8 @@ class WiiNunchuk {
 
 const int centerJoy   = 127;
 const int deadZone    = 8;
-const int maxSpeed    = 5000;
-const int minSpeed    = 100;
+const int maxSpeed    = 15000;
+const int minSpeed    = 200;
 
 int velocity  = 0;
 int automatic = 0;
@@ -162,8 +162,10 @@ void loop() {
         }
   
         // Con leva X in azione esci da automatico
-        if (automatic && abs(joyAngle) > deadZone)
+        if (automatic && abs(joyAngle) > deadZone) {
             automatic = 0;
+            velocity  = 0;
+        }
     
         // Con uso joystick
         if (abs(joyAngle) > deadZone) {
