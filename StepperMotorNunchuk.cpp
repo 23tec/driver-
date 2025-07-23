@@ -1,6 +1,6 @@
 // Stepper.cpp - Angelo Z. (2025)
-// Controller for stepper motors with use of nunchuk and
-// non-blocking functions
+// Controller for stepper motors with use of nunchuk.
+// All the code implements non-blocking functions.
 #include <nI2C.h>
 
 class WiiNunchuk {
@@ -158,7 +158,7 @@ void loop() {
             automatic = !automatic;
         }
   
-        // Con leva X in azione esci dal automatico
+        // Con leva X in azione esci da automatico
         if (automatic && abs(joyAngle) > deadZone)
             automatic = 0;
     
