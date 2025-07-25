@@ -1,3 +1,5 @@
+// Stepper.cpp - Angelo Z. (2025)
+// Controller for stepper motors with nunchuk
 #include <Arduino.h>
 #include <nI2C.h> // Versione 2.1
 
