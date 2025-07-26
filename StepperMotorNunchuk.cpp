@@ -133,15 +133,19 @@ void enableStepper(bool enable) {
 
 // Imposta senso di rotazione
 void setRotation(int direction) {
-    if (stepperDir == direction) 
+    const int threshold = 5;
+    const int hysteresis = 10;
+
+    if (abs(direction) < threshold) 
         return;
         
-    if (direction > 0)
+    if (direction > hysteresis && stepperDir != 1) {
         PORTD &= ~(1 << PD3);
-    else    
+        stepperDir = 1;
+    } else if (direction < -hysteresis && stepperDir != -1) {
         PORTD |= (1 << PD3);
-        
-    stepperDir = direction;     
+        stepperDir = -1;
+    }    
 }
 
 
@@ -153,10 +157,14 @@ void resetStepper() {
     endstopTriggered = false;
 }
 
-
 void loop() {
-    const int joyAngle = nunchuk.analogX() - centerJoy;
-
+    float alpha = 0.2, lowpass = 0.0;
+    int angle = nunchuk.analogX() - centerJoy;
+    int joyAngle = 0;
+    
+    lowpass = apha * angle + (1 - alpha) * lowpass;
+    joyAngle = (int) lowpass;
+    
     //automatic ^= nunchuk.zButton();
     bool buttonState = nunchuk.zButton();
 
