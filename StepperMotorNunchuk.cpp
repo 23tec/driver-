@@ -76,6 +76,9 @@ bool endstopTriggered = false;
 bool stepperIdle = true;
 int stepperDir = 0;
 
+const float alpha = 0.2;
+float lowpass = 0;
+
 WiiNunchuk nunchuk;
 
 
@@ -158,11 +161,10 @@ void resetStepper() {
 }
 
 void loop() {
-    float alpha = 0.2, lowpass = 0.0;
-    int angle = nunchuk.analogX() - centerJoy;
+    int rawReading = nunchuk.analogX() - centerJoy;
     int joyAngle = 0;
     
-    lowpass = apha * angle + (1 - alpha) * lowpass;
+    lowpass = alpha * rawReading + (1 - alpha) * lowpass;
     joyAngle = (int) lowpass;
     
     //automatic ^= nunchuk.zButton();
