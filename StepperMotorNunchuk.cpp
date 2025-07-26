@@ -161,14 +161,14 @@ void resetStepper() {
 }
 
 void loop() {
+    nunchuk.update();
+
+    int buttonState = nunchuk.zButton();
     int rawReading = nunchuk.analogX() - centerJoy;
     int joyAngle = 0;
     
     lowpass = alpha * rawReading + (1 - alpha) * lowpass;
     joyAngle = (int) lowpass;
-    
-    //automatic ^= nunchuk.zButton();
-    bool buttonState = nunchuk.zButton();
 
     // Finecorsa innescato blocca stepper
     if (!(PINB & (1 << PB2)) || !(PINB & (1 << PB3))) {
@@ -187,18 +187,18 @@ void loop() {
         }
 
         // Esci da automatico
-        if (automatic && abs(joyAngle) > deadZone) {
+        if (automatic && abs(joyAngle) >= deadZone) {
             automatic = 0;
             velocity  = 0;
         }
 
         // Con joystick
-        if (abs(joyAngle) > deadZone) {
+        if (abs(joyAngle) >= deadZone) {
             // Attiva stepper
             enableStepper(true);
             // <- ->
             setRotation(joyAngle);
-            // Mappa angolazione in velocita'
+            // Mappa angolazione in velocita' lineare
             velocity = map(abs(joyAngle), deadZone, centerJoy, maxSpeed, minSpeed);
         }
         else if (automatic) {
@@ -216,7 +216,5 @@ void loop() {
             runStepper(velocity);
 
         buttonPressed = buttonState;
-
-        nunchuk.update();
     }
 }
