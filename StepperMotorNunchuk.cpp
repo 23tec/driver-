@@ -221,10 +221,13 @@ void loop() {
     int joyAngle = (int) lowpass;
 
     handleEndStops();
-    handleJoystickInput(joyAngle);
-    handleButton(buttonState);
 
-    if (!stepperIdle) {
-        runStepper(velocity);
+    if (!endstopTriggered) { 
+        handleJoystickInput(joyAngle);
+        handleButton(buttonState);
+
+        if (!stepperIdle) {
+            runStepper(velocity);
+        }
     }
 }
