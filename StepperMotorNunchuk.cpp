@@ -227,8 +227,7 @@ void handleButton(uint8_t buttonId, bool buttonState) {
             automatic = !automatic;
 
             // Con joystick neutrale senza una velocita' prescelta nessun
-            // automatico attivo. Altrimenti usa tasto Z per disattivare 
-            // lo stepper.
+            // automatico attivo. 
             if (velocity == ULONG_MAX && !memory) {
                 automatic = false;
                 enableStepper(false);
