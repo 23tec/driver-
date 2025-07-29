@@ -274,9 +274,9 @@ void loop() {
     nunchuk.update();
 
     if (!endstopTriggered) {
-        joyangle = nunchuk.analogX() - centerJoy;
+        joyangle = lowpass(nunchuk.analogX() - centerJoy);
 
-        handleJoystickInput(lowpass(joyangle));
+        handleJoystickInput(joyangle);
         handleButton(0, nunchuk.zButton());
         handleButton(1, nunchuk.cButton());
 
