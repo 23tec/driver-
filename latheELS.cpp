@@ -60,7 +60,7 @@ class WiiNunchuk {
 
 
 
-#define MICROSTEPS_PRE_REV 400      // DM542
+#define MICROSTEPS_PER_REV 400      // DM542
 #define SCREWS_PITCH_MM 2.5         // Asse Z
 #define DISTANCE_TO_TRAVEL_MM 10.0  // 1cm
 
@@ -79,7 +79,7 @@ class WiiNunchuk {
 #define JOYSTICK_CENTER 127
 #define JOYSTICK_DEADZONE 8
 
-#define STEPS_TO_RELEASE_ENDSTOP (MICROSTEPS_PRE_REV / SCREWS_PITCH_MM) * DISTANCE_TO_TRAVEL_MM
+#define STEPS_TO_RELEASE_ENDSTOP (MICROSTEPS_PER_REV / SCREWS_PITCH_MM) * DISTANCE_TO_TRAVEL_MM
 
 volatile unsigned long lastEncoderActivity = 0;
 unsigned long stepperPulseDelay  = ULONG_MAX;
@@ -400,4 +400,5 @@ void loop() {
         }
     }
 }
+
 
