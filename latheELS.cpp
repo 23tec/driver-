@@ -188,7 +188,7 @@ void encoderISR() {
     PORTB = (PORTB & ~(1 << PB3)) | (dir == DIR_FORWARD ? 0 : (1 << PB3));
 
     stepPending = true;
-    lastEncoderActivity = micros();
+    lastEncoderActivity = millis();
     encoderTurns = true;
 }
 
@@ -400,3 +400,4 @@ void loop() {
         }
     }
 }
+
