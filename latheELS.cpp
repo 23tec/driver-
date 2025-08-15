@@ -445,7 +445,7 @@ unsigned long motionProfile2(const unsigned long startMotionTime,
         float ratio = float(elapsed) / maxAccelerationTime;
         float eased = (1.0 - cos(ratio * PI)) / 2.0; // S-curve
 
-        return minAccelerationTime - eased * (minAcceleration - stepperPulseDelay);
+        return minAccelerationTime - eased * (minAccelerationTime - stepperPulseDelay);
     } 
 
     return stepperPulseDelay;
@@ -497,3 +497,4 @@ void loop() {
         }
     }
 }
+
